@@ -1,7 +1,7 @@
 "use strict"
 
 var express = require('express');
-var router = express.Router();
+var wChallengeRouter = express.Router();
 
 const { 
   UserController, 
@@ -10,17 +10,17 @@ const {
 } = require("../controller");
 
 const { Auth } = require('../middleware');
-const { route } = require('./users');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+wChallengeRouter.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/user', UserController.createUser);
+wChallengeRouter.post('/user', UserController.createUser);
 
-router.post('/login', LoginController.auth);
+wChallengeRouter.post('/login', LoginController.auth);
 
-router.get('/crypto-currencies', Auth.validateToken, CryptoCurrencyController.getCryptoCurrencies);
+wChallengeRouter.get('/crypto-currencies', Auth.validateToken, CryptoCurrencyController.getCryptoCurrencies);
 
-module.exports = router;
+
+module.exports = wChallengeRouter;

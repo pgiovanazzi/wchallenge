@@ -4,17 +4,12 @@ const pool = getConection();
 
 const getCryptoCurrencies = async (req, res) => {
 	try {
-		const {
-			name,
-			surname,
-			username,
-			password,
-			favorite_coin
-		} = req.body;
 
-		await pool.query('select negocio.create_user($1,$2,$3,$4,$5);', [name, surname, username, password, favorite_coin]);
+		const data = await pool.query('select negocio.getCryptoCurrencies($1);', [req.user.username]);
+
+		const { getcryptocurrencies } = data.rows[0];
 		
-		res.status(200).send({ success: true, message: 'User created.'});
+		res.status(200).send({ success: true, currencies: getcryptocurrencies, user: req.user, message: 'Currencies listed.'});
 	} catch (err) {
 		res.status(400).send({ success: false, res: null, message: err.message });
 	}
