@@ -6,7 +6,8 @@ var wChallengeRouter = express.Router();
 const { 
   UserController, 
   LoginController, 
-  CryptoCurrencyController 
+  CryptoCurrencyController,
+  UserCryptocurrencyController
 } = require("../controller");
 
 const { Auth } = require('../middleware');
@@ -22,5 +23,8 @@ wChallengeRouter.post('/login', LoginController.auth);
 
 wChallengeRouter.get('/crypto-currencies', Auth.validateToken, CryptoCurrencyController.getCryptoCurrencies);
 
+wChallengeRouter.post('/user-cryptocurrency', Auth.validateToken, UserCryptocurrencyController.addCryptocurrencyToUser);
+
+wChallengeRouter.get('/user-cryptocurrencies', Auth.validateToken, UserCryptocurrencyController.getTopCryptocurrencies);
 
 module.exports = wChallengeRouter;

@@ -7,7 +7,11 @@ const updateCoinListDB = async () => {
     const Pool = getConection();
     let page = 1;
 
+    let msgLoading = 'Carga coin details ...';
+    
     do {
+      
+      console.log(msgLoading);
 
       let dataCoins = await CoinGeckoService.getCoins("usd", page);
       let coins = await dataCoins.json();
@@ -16,8 +20,6 @@ const updateCoinListDB = async () => {
         break;
     
       await Pool.query("select negocio.update_coins($1)", [JSON.stringify(coins)]);
-
-      console.log('Carga coin details ....')
   
       await Pool.query("select negocio.update_coin_details($1, $2)", [JSON.stringify(coins), "USD"]);
   
@@ -30,7 +32,7 @@ const updateCoinListDB = async () => {
       await Pool.query("select negocio.update_coin_details($1, $2)", [JSON.stringify(coins), "ARS"]);
 
       page++;
-      
+      msgLoading += '.';
     } while (true);
 
     console.info('All coins was populated.');
