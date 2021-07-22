@@ -1,22 +1,24 @@
-version: "3.9"
-services:  
+version: '3.9'
+services:
   pgdb:
     image: postgres
     container_name: postgres
     environment:
-      POSTGRES_PASSWORD: "s3cret"
+      POSTGRES_PASSWORD: ${PGPASSWORD}
     volumes:
       - type: bind
         source: ./dump.sql
         target: /docker-entrypoint-initdb.d/dump.sql
-      
+
   app:
     container_name: wchallenge
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     env_file:
       - .env
+    command: ['bin/wait-for-it.sh', 'pgdb:5432', '-t', '15', '--', 'bin/www']
     links:
       - pgdb
-
+    depends_on:
+      - pgdb

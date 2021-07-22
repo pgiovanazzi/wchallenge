@@ -8,6 +8,4 @@ RUN npm install --only=prod
 
 COPY api .
 
-EXPOSE 3000
-
-CMD ["node", "bin/www"]
+RUN chmod +x bin/wait-for-it.sh
