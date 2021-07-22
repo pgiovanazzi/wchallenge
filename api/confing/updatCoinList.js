@@ -7,7 +7,7 @@ const updateCoinListDB = async () => {
     const Pool = getConection();
     let page = 1;
 
-    let msgLoading = 'Carga coin details ...';
+    let msgLoading = 'Populate coin details ...';
     
     do {
       
