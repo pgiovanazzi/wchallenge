@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 // Only use in Developend mode
-require('custom-env').env('dev');
+// require('custom-env').env('dev');
 
 const {
     PGHOST,

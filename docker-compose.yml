@@ -1,1 +1,22 @@
-version: "3.6"
+version: "3.9"
+services:  
+  pgdb:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: "s3cret"
+    volumes:
+      - type: bind
+        source: ./dump.sql
+        target: /docker-entrypoint-initdb.d/dump.sql
+      
+  app:
+    container_name: wchallenge
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    links:
+      - pgdb
+
