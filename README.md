@@ -29,9 +29,13 @@
 #### Run application
 
 Over root path project run the command
- 
-`$ docker-compose up`
 
+```bash 
+git clone https://github.com/pgiovanazzi/wchallenge.git && cd wchallenge`
+```
+```bash
+docker-compose up
+```
 
 ## Documentation
 
